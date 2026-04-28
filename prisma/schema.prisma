@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id                  Int             @id @default(autoincrement())
+  nombre              String          @db.VarChar(100)
+  apellido            String          @db.VarChar(100)
+  email               String          @unique @db.VarChar(200)
+  password_hash       String          @db.VarChar(255)
+  fecha_nacimiento    DateTime        @db.Date
+  estado              String          @default("A") @db.Char(1)
+  creado_por          String          @db.VarChar(200)
+  fecha_creacion      DateTime        @default(now()) @db.Timestamp(6)
+  modificado_por      String?         @db.VarChar(200)
+  fecha_modificacion  DateTime?       @db.Timestamp(6)
+  conversaciones      Conversacion[]
+
+  @@map("usuarios")
+}
+
+model Conversacion {
+  id                  Int             @id @default(autoincrement())
+  usuario_id          Int
+  titulo              String          @db.VarChar(255)
+  estado              String          @default("A") @db.Char(1)
+  creado_por          String          @db.VarChar(200)
+  fecha_creacion      DateTime        @default(now()) @db.Timestamp(6)
+  modificado_por      String?         @db.VarChar(200)
+  fecha_modificacion  DateTime?       @db.Timestamp(6)
+  usuario             Usuario         @relation(fields: [usuario_id], references: [id])
+  mensajes            Mensaje[]
+
+  @@map("conversaciones")
+}
+
+model Mensaje {
+  id                  Int             @id @default(autoincrement())
+  conversacion_id     Int
+  rol                 String          @db.VarChar(20)
+  contenido           String          @db.Text
+  adjuntos            Json?           @db.JsonB
+  estado              String          @default("A") @db.Char(1)
+  creado_por          String          @db.VarChar(200)
+  fecha_creacion      DateTime        @default(now()) @db.Timestamp(6)
+  modificado_por      String?         @db.VarChar(200)
+  fecha_modificacion  DateTime?       @db.Timestamp(6)
+  conversacion        Conversacion    @relation(fields: [conversacion_id], references: [id])
+
+  @@map("mensajes")
+}

@@ -41,8 +41,8 @@ export default function LoginForm() {
   const labelClass = "block text-xs font-medium text-gray-400 mb-1";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-950 p-4">
-      <div className="w-full max-w-sm bg-gray-900 rounded-2xl shadow-2xl border border-gray-800 px-6 py-6 max-h-[95vh] overflow-y-auto">
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="w-full max-w-sm bg-gray-900/80 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-800 px-6 py-6 max-h-[95vh] overflow-y-auto">
         <div className="flex flex-col items-center mb-5">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-3 shadow-lg shadow-indigo-500/20">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
